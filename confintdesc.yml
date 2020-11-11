@@ -1,0 +1,20 @@
+---
+- name: set interface description
+  hosts: switch
+  tasks:
+    - name: backup configuration
+      ios_config:
+        backup: yes
+
+    - name: label interface 20
+      ios_interface:
+        name: GigabitEthernet1/0/20
+        description: Connect to AP1
+    - name: label interface 3
+      ios_interface:
+        name: GigabitEthernet1/0/3
+        description: Connect to AP
+    - name: label interface 24
+      ios_interface:
+        name: GigabitEthernet1/0/24
+        description: Connect to Mikrotik Router

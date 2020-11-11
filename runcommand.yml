@@ -1,0 +1,13 @@
+---
+- name: show command of IOS devices
+  hosts: switch
+
+  tasks:
+    - name: execute command
+      ios_command:
+        commands: show ip int brief
+      register: result
+
+    - name: show result
+      debug:
+        var: result

@@ -1,0 +1,8 @@
+---
+- name: reachbility test
+  hosts: switch
+
+  tasks:
+  - name: Test reachability to AP
+    ios_ping:
+      dest: 192.168.0.7

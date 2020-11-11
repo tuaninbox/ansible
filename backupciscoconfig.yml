@@ -1,0 +1,19 @@
+---
+- name: backup cisco device config
+  hosts: switch
+  connection: network_cli
+  become: yes
+  become_method: enable
+  gather_facts: no
+
+  tasks:
+    - name: gather ios_facts
+      ios_facts:
+      register: version
+
+    - debug:
+        msg: "{{ version }}"
+
+    - name: Backup configuration
+      ios_config:
+        backup: yes

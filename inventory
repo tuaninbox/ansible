@@ -1,0 +1,21 @@
+[aps]
+ap ansible_host=10.10.10.7
+ap1 ansible_host=10.10.10.9
+[switches]
+switch ansible_host=10.10.10.8
+[routers]
+router ansible_host=10.10.10.1
+[servers]
+home ansible_host=10.10.10.17
+hass ansible_host=10.10.10.16
+lenovopc ansible_host=localhost
+[hosts]
+solar ansible_host=10.10.10.33
+tv ansible_host=10.10.10.20
+swanncam ansible_host=10.10.10.12
+wyzecam ansible_host=10.10.10.32
+amazon ansible_host=10.10.10.23
+homemini ansible_host=10.10.10.21
+[network:children]
+aps
+switches
