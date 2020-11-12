@@ -1,0 +1,22 @@
+---
+- name: Backup configuration and check device health indicators
+  hosts: network
+  tasks:
+    - name: backup device configuration
+      ios_config:
+        backup: yes
+
+    - name: look at device health indicators
+      ios_command:
+        commands:
+          - show version | in uptime
+          - show ip domain
+          - show clock
+          - show ip name-server
+          - show proc mem | in Total
+      register: results
+
+    - name: show results
+      debug:
+        msg: "{{ item }}"
+      loop: "{{ results.stdout_lines }}"
