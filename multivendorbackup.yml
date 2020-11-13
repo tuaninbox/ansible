@@ -2,7 +2,7 @@
 - name: backup config from vyos devices
   hosts: vy
   vars:
-    ansible_password: "{{ vyos_pass }}"
+    ansible_ssh_pass: "{{ vyos_pass }}"
   tasks:
     - name: backup config
       vyos_config:
@@ -11,8 +11,10 @@
 - name: backup config from ios devices
   hosts: switch
   vars:
-    ansible_password: "{{ ios_pass }}"
+    ansible_ssh_pass: "{{ ios_pass }}"
   tasks:
     - name: backup config
       ios_config:
         backup: yes
+#ansible-playbook -e "vyos_pass=<pass> ios_pass=<pass>" multivendorbackup.yml
+#
