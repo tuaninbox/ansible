@@ -1,0 +1,17 @@
+---
+- name: trace path from source (remote host) to trace_me
+  hosts: switch
+  
+  vars:
+    trace_me: 8.8.8.8
+
+  tasks:
+    - name: trace path from source {{ inventory_hostname }} to {{ trace_me }}
+      ios_command:
+        commands:
+          - traceroute {{ trace_me }}
+      register: path
+
+    - name: show the path from {{ inventory_hostname }} to {{ trace_me }}
+      debug:
+        msg: "{{ path }}"
