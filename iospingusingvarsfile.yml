@@ -1,0 +1,14 @@
+---
+- name: reachbility test
+  hosts: switch
+  vars_files:
+    - vars/myvars.yml
+  tasks:
+  - name: Test reachability to {{dest }}
+    ios_ping:
+      dest: "{{ dest }}"
+    register: result
+
+  - name: Ping result to {{ dest }}
+    debug:
+      msg: "{{ result }}"
