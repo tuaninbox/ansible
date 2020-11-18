@@ -1,0 +1,8 @@
+---
+- name: write magic variables to a file using a template
+  hosts: switch
+  tasks:
+    - name: do it
+      template:
+        src: j2/magic.j2
+        dest: magic.out

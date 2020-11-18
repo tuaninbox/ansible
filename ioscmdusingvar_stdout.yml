@@ -1,0 +1,15 @@
+---
+- name: reachbility test
+  hosts: switch
+  vars:
+    dest: 192.168.0.1
+  tasks:
+  - name: Test reachability to {{destination}}
+    ios_command:
+      commands:
+        - ping {{ dest }}
+    register: result
+
+  - name: Ping result to {{ destination }}
+    debug:
+      var: result.stdout_lines
