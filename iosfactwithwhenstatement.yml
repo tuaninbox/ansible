@@ -1,0 +1,18 @@
+---
+- name: Example of using when statement
+  hosts: network
+  gather_facts: no
+  tasks:
+    - name: look at some facts
+      ios_facts:
+        gather_subset:
+          - hardware
+
+    - name: show results
+      debug:
+        msg:
+          - "model: {{ ansible_net_model }}"
+          - "version: {{ ansible_net_version }}"
+      when: 
+        - ansible_net_model | regex_search("AP")
+        - ansible_net_version is version('13.3','>=')
