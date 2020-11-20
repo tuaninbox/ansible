@@ -10,7 +10,7 @@
     - name: gather facts
       ios_facts:
         gather_subset: all
-        #when: ansible_network_os == 'ios"
+      when: ansible_network_os == 'ios'
 
     - name:  
         # 'ansible_net_interfaces' fact 

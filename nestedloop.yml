@@ -1,0 +1,21 @@
+---
+- name: illustrating nested loops
+  hosts: switch
+  gather_facts: no
+  vars:
+    source_interfaces: [gigabitethernet1/0/3,gigabitethernet1/0/20]
+    dest_addreses: [192.168.0.1,192.168.0.7]
+
+  tasks:
+    - name: with each detination, source ping from each interface
+      ios_command:
+        commands:
+          - ping {{ item.0 }} source {item.1} ccount 2
+      register: output
+      with_nested:
+        - "{{ dest_addresses }}"
+        - "{{ source_interfaces }}"
+
+    - name: show ping_output
+      debug:
+        msg: "{{ output }}"
