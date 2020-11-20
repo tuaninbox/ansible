@@ -1,0 +1,17 @@
+---
+- name: ignore errors
+  hosts: switch
+  gather_facts: no
+  vars:
+    intf: Interface GigabitEthernet1
+
+  tasks:
+    - name: a failed task
+      ios_config:
+        lines: shutdown
+        parents: "{{ intf }}"
+      ignore_errors: yes
+
+    - name: a good task
+      debug:
+        msg: "this is a good task"

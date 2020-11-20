@@ -1,0 +1,18 @@
+---
+- name: issue show interface for each interface in list 
+  hosts: switch
+  gather_facts: no
+  vars:
+    interface_list: [GigabitEthernet1/0/3, GigabitEthernet1/0/20]
+
+  tasks:
+    - name: show each interface
+      ios_command:
+        commands:
+          - show interface {{ item }}
+      register: results
+      loop: "{{ interface_list }}"
+
+    - name: show results
+      debug:
+        msg: "{{ results }}"
