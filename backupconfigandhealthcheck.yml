@@ -1,0 +1,37 @@
+- name: backup config and record device health indicators
+  hosts: network
+  tasks:
+    - name: backup ap config
+      ios_config:
+        backup: yes
+      when: ansible_network_os=="ios"
+
+    - name: look at some device health indicators
+      ios_command:
+        commands:
+          - show ver | include uptime
+          - show ip domain
+          - show clock
+          - show ip name-server
+      register: ap_result
+      #when: ansible_net_model | regex_search("AP")
+
+    - name: backup switch config
+      ios_config:
+        backup: yes
+      when: ansible_network_os=="ios"
+
+    - name: look at some device health indicators
+      ios_command:
+        commands:
+          - show ver | include uptime
+          - show ip domain
+          - show clock
+          - show ip name-server
+      register: switch_result
+      #when: ansible_net_model | regex_search("2960")
+
+    - name: show results
+      debug:
+        msg: "{{ item }}"
+      loop: "{{ (ap_result | combine(switch_result)).stdout_lines }}"

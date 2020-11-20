@@ -1,0 +1,13 @@
+---
+- name: multiple ping with loop var
+  hosts: switch
+  vars:
+    dests:
+      - 8.8.8.8
+      - 1.1.1.1
+
+  tasks:
+    - name: "Test reachability from {{ inventory_hostname }} to many destinations"
+      ios_ping:
+        dest: "{{ item }}"
+      loop: "{{ dests }}"
