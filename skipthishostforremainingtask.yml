@@ -1,0 +1,17 @@
+---
+- name: >
+    an illustration of normal task processing
+  hosts: network
+  gather_facts: no
+  vars:
+    intf: Interface GigabitEthernet1/0/5
+
+  tasks:
+    - name: a failed task
+      ios_config:
+        lines:
+          - shutdown
+        parents: "{{ intf }}"
+    - name: a good task
+      debug:
+        msg: "this is a good task"
