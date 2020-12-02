@@ -1,0 +1,16 @@
+---
+- name: a play that shows parsed interface data
+  hosts: switch
+  gather_facts: no
+  vars:
+    shint_parser: vars/ios_shipintbr-parser.yml
+  tasks:
+    - name: issue commands
+      ios_command:
+        commands:
+          - show ip int brief
+      register: results
+
+    - name: show CLI output
+      debug:
+        msg: "{{ results.sdout[0] | parse_cli(shint_parser) }}"
