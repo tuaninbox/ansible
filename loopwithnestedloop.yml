@@ -1,0 +1,21 @@
+---
+- name: illustrating nested loop
+  hosts: switch
+  gather_facts: no
+  vars:
+    src_addr: [192.168.0.9, 192.168.0.8]
+    dst_addr: [8.8.4.4, 8.8.8.8]
+
+  tasks:
+    - name: with each destination, source ping from each address
+      ios_command:
+        commands:
+          - ping {{item.0}} source {{item.1}} repeat 2
+      register: output
+      with_nested:
+        - "{{ dst_addr }}"
+        - "{{ src_addr }}"
+
+    - name: show output
+      debug:
+        msg: "{{ output }}"
